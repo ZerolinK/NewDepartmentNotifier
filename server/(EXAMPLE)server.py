@@ -17,7 +17,7 @@ class SillyHandler(BaseHandler):
 
 def launch():
 	handlers = [(r"/", MainHandler), (r"/(\w+)", SillyHandler)]
-	server_settings = {"static_path": "./middleware/static", "template_path": "./middleware/templates", "login_url" : "/", "cookie_secret": os.urandom(24)}
+	server_settings = {"static_path": "./middleware/static", "template_path": "./middleware/templates", "login_url" : "/", "cookie_secret": os.urandom(24), "xsrf_cookies": True}
 	application = tornado.web.Application(handlers, **server_settings)
 	application.listen(8000, "localhost")
 	#global database_controller
