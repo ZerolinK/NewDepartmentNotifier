@@ -19,7 +19,7 @@ class IndexController(tornado.web.RequestHandler):
         self.render('index.html')#, user=self.current_user)
     #TODO: define this shit
 
-#class WebPageController(tornado.web.RequestHandler):
+'''class WebPageController(tornado.web.RequestHandler):'''
     #TODO: define this shit
 
 class LoginController(tornado.web.RequestHandler):
@@ -42,8 +42,10 @@ class ReportController(BaseController):
         self.render('report.html')
 #    def post(self):
         #put appropriate fetches from template here and send to database
-#class UserProfileController(BaseController):
+
+'''class UserProfileController(BaseController):'''
     #TODO: define this shit
+    
 def launch():
     server_settings = {"static_path": os.path.join(os.path.dirname(__file__), "./static"), 
     "template_path": "./server/templates", 
@@ -57,7 +59,6 @@ def launch():
         (r'/logout', LoginController.LogoutController) ]
     
     application = tornado.web.Application(handlers, **server_settings)
-    #application.listen(port, localhost)
     http_server = tornado.httpserver.HTTPServer(application)
     http_server.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()
