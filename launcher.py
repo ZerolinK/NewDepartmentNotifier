@@ -1,5 +1,5 @@
 import json, os
-from middleware import server
+from server import mainController
 
 print("Starting server...")
 mainController.launch()
