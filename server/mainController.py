@@ -45,11 +45,17 @@ class ReportController(BaseController):
 #class UserProfileController(BaseController):
     #TODO: define this shit
 def launch():
+    server_settings = {"static_path": os.path.join(os.path.dirname(__file__), "./static"), 
+    "template_path": "./server/templates", 
+    "login_url": "/login", 
+    "cookie_secret": os.urandom(24), 
+    "xsrf_cookies": True}
+
     handlers = [ (r'/', IndexController),
         (r'/report', ReportController), 
         (r'/login', LoginController), 
         (r'/logout', LoginController.LogoutController) ]
-    server_settings = {"static_path": os.path.join(os.path.dirname(_file_), "staticContent", "template_path": "./server/templates", "login_url" : "/", "login_url": "/login", "cookie_secret": os.urandom(24), "xsrf_cookies": True}
+    
     application = tornado.web.Application(handlers, **server_settings)
     #application.listen(port, localhost)
     http_server = tornado.httpserver.HTTPServer(application)
