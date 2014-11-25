@@ -1,5 +1,5 @@
 body {
-    background: url("bg.jpg") no-repeat center center fixed; 
+    background: black url("bg.jpg") no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -35,6 +35,10 @@ hr {
 .test
 {
   margin-top: 25px;
+}
+
+textarea {
+  resize: vertical;
 }
 
 .panel-black {
