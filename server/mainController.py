@@ -14,7 +14,7 @@ class BaseController(tornado.web.RequestHandler):
 
     #TODO: define this shit
 
-class IndexController(tornado.web.RequestHandler):
+class IndexController(BaseController):
     def get(self):
         self.render('index.html')#, user=self.current_user)
     #TODO: define this shit
@@ -22,7 +22,7 @@ class IndexController(tornado.web.RequestHandler):
 '''class WebPageController(tornado.web.RequestHandler):'''
     #TODO: define this shit
 
-class LoginController(tornado.web.RequestHandler):
+class LoginController(BaseController):
     def post(self):
         self.set_secure_cookie("username", self.get_argument("username"))#passed from html with the tag username
         self.redirect("/")
@@ -37,9 +37,13 @@ class LoginController(tornado.web.RequestHandler):
     #TODO: define this shit"""
 
 class ReportController(BaseController):
-    @tornado.web.authenticated#this requires that auser be logged in to see
     def get(self):
         self.render('report.html')
+        
+    class NewReportController(BaseController):
+        #@tornado.web.authenticated
+        def get(self):
+            self.render('create.html')
 #    def post(self):
         #put appropriate fetches from template here and send to database
 
@@ -54,7 +58,8 @@ def launch():
     "xsrf_cookies": True}
 
     handlers = [ (r'/', IndexController),
-        (r'/report', ReportController), 
+        (r'/report', ReportController),
+        (r'/create', ReportController.NewReportController), 
         (r'/login', LoginController), 
         (r'/logout', LoginController.LogoutController) ]
     
