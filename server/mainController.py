@@ -25,15 +25,15 @@ class IndexController(BaseController):
 class LoginController(BaseController):
     def post(self):
         self.set_secure_cookie("username", self.get_argument("username"))#passed from html with the tag username
-        self.redirect("/")
+        #if PASSWORD is good, self.set_secure_cookie(username, self.get_argument("username"))
+        self.redirect("/", permanent=True)#if permanent = true, when user refreshes, more form data will NOT be sent
     def get(self):
         self.render('login.html')#login.html page to be rendered
 
-    class LogoutController(BaseController):
+    '''class LogoutController(BaseController):
         def get(self):
-            if (self.get_argument("logout", None)):
-                self.clear_cookie("username")
-                self.redirect("/")
+            self.clear_cookie("username")
+                self.redirect("/", permanent = true)'''
     #TODO: define this shit"""
 
 class ReportController(BaseController):
@@ -44,8 +44,13 @@ class ReportController(BaseController):
         #@tornado.web.authenticated
         def get(self):
             self.render('create.html')
-#    def post(self):
-        #put appropriate fetches from template here and send to database
+	    #ADDED by Jimmy and david, incomplete sample code
+	    '''def post(self):
+	    	variable_1 = self.get_argument("form variable name here")
+	    	....
+	    	if PASSWORD is good, self.set_secure_cookie(username, self.get_argument("username"))'''
+
+	        #put appropriate fetches from template here and send to database
 
 '''class UserProfileController(BaseController):'''
     #TODO: define this shit
