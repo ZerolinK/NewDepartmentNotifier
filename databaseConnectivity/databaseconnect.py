@@ -1,4 +1,5 @@
 import mysql.connector
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class DatabaseController(object):
         def __init__(self, connection_address, connection_port, user_name, password, database):
