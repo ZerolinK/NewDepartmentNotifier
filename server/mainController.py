@@ -14,7 +14,7 @@ class BaseController(tornado.web.RequestHandler):
 
     #TODO: define this shit
 
-class IndexController(BaseController):
+class IndexController(tornado.web.RequestHandler):
     def get(self):
         self.render('index.html')#, user=self.current_user)
     #TODO: define this shit
