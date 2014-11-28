@@ -9,12 +9,17 @@ define("port", default=8000, help="run on specified port", type=int)
 
 class BaseController(tornado.web.RequestHandler):
     def get_current_user(self):
-        return self.get_secure_cookie("username")
+        return self.get_secure_cookie("name")
 
     #TODO: define this shit
 
-class IndexController(tornado.web.RequestHandler):
+class IndexController(BaseController):
     def get(self):
+        if (self.current_user is not None):
+            username = self.current_user
+            self.render('index.html', user = username)
+        else:
+            self.render('index.html', user = None)
         self.render('index.html')#, user=self.current_user)
     #TODO: define this shit
 
@@ -23,16 +28,23 @@ class IndexController(tornado.web.RequestHandler):
 
 class LoginController(BaseController):
     def post(self):
+        s = '\n\n\n\n\n\n\n\n\n\IN POST statement!!!\n\n\n\n\n'
+        str(s)
+        usermail = self.get_argument("usermail")
+        userpass = self.get_argument("password")
         #tries = 0
         #while (tries < 3)
-        if (databaseControl.verify_account(self.get_argument("usermail"), self.get_argument("password"))):
-            #databaseControl.
-            self.set_secure_cookie("username", self.get_argument("usermail"))#passed from html with the tag username
+        if (databaseControl.verify_account(usermail, userpass)):
+            print("\n\n\n\n\n\n\n\n\n\IN if statement!!!\n\n\n\n\n")
+            username = databaseControl.get_basic_user(usermail)
+            self.set_secure_cookie("name", databaseControl.get_basic_user(usermail))#passed from html with the tag username
             self.redirect("/", permanent=True)
         '''TODO: return message stating password is incorrect and to try again'''
         #if PASSWORD is good, self.set_secure_cookie(username, self.get_argument("username"))
         self.redirect("/", permanent=True)#if permanent = true, when user refreshes, more form data will NOT be sent
     def get(self):
+        s = '\n\n\n\n\n\n\n\n\n\IN GET statement!!!\n\n\n\n\n'
+        str(s)
         self.render('login.html')#login.html page to be rendered
     '''def put(self):
         RETRIVE AND STORE USER DATA IN DATABASE'''
@@ -49,7 +61,7 @@ class ReportController(BaseController):
         self.render('report.html')
         
     class NewReportController(BaseController):
-        @tornado.web.authenticated
+        tornado.web.authenticated
         def get(self):
             self.render('create.html')
 	    #ADDED by Jimmy and david, incomplete sample code

@@ -74,11 +74,16 @@ class DatabaseController(object):
 
         def get_basic_user(self, userMail):
                 #query = "SELECT * FROM user WHERE EMail = " + userMail
-                query = "SELECT * FROM user WHERE EMail = %s"
+                query = "SELECT Fname, LName FROM user WHERE EMail = %s"
                 self.cursor.execute(query, (userMail, ))
+                userData = ""
+                for (FName, lName) in self.cursor:
+                        userData = '"fName"' + '"lName"'
                 self.connection.commit()
-                fetch = self.cursor.fetchone()
-                userData = " ".join(map(str, fetch))
+                #userData = ""
+                #fetch = self.cursor.fetchone()
+                #while fetch is not None:
+                #        userData = userData + '"fetch"'
                 return userData
 
         def create_faculty_user(self, userID, fName, lName, email, password):
