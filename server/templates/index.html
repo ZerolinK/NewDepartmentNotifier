@@ -61,6 +61,7 @@
   </nav>
   <div class="container">
     <div class="row">
+      {% if user is not None %}
       <div class="col-lg-2" style="margin-top:25px;">
         <div class="panel panel-default panel-transparent">
           <div class="panel-body">
@@ -71,15 +72,11 @@
           <div class="panel-body">
             <a href=""><img class="img-responsive" src="../static/profile.png" alt="...">
             </a>
-            {% if user is not None %}
             <h5 class="text-center">{{ user }}</h5>
-            {% else %}
-            <h5 class="text-center">Guido Ruiz</h5>
-            {%end%}
-
-          </div>
+            </div>
         </div>
       </div>
+      {%end%}
       <div class="col-lg-7">
         <div class="panel panel-default panel-transparent">
           <div class="panel-body">
