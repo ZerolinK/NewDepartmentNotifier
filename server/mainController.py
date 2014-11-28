@@ -11,8 +11,6 @@ class BaseController(tornado.web.RequestHandler):
     def get_current_user(self):
         return self.get_secure_cookie("name")
 
-    #TODO: define this shit
-
 class IndexController(BaseController):
     def get(self):
         if (self.current_user is not None):
@@ -20,31 +18,24 @@ class IndexController(BaseController):
             self.render('index.html', user = username)
         else:
             self.render('index.html', user = None)
-        self.render('index.html')#, user=self.current_user)
-    #TODO: define this shit
 
 '''class WebPageController(tornado.web.RequestHandler):'''
     #TODO: define this shit
 
 class LoginController(BaseController):
     def post(self):
-        s = '\n\n\n\n\n\n\n\n\n\IN POST statement!!!\n\n\n\n\n'
-        str(s)
         usermail = self.get_argument("usermail")
         userpass = self.get_argument("password")
         #tries = 0
         #while (tries < 3)
         if (databaseControl.verify_account(usermail, userpass)):
-            print("\n\n\n\n\n\n\n\n\n\IN if statement!!!\n\n\n\n\n")
             username = databaseControl.get_basic_user(usermail)
-            self.set_secure_cookie("name", databaseControl.get_basic_user(usermail))#passed from html with the tag username
+            self.set_secure_cookie("name", username)#passed from html with the tag username
             self.redirect("/", permanent=True)
         '''TODO: return message stating password is incorrect and to try again'''
         #if PASSWORD is good, self.set_secure_cookie(username, self.get_argument("username"))
-        self.redirect("/", permanent=True)#if permanent = true, when user refreshes, more form data will NOT be sent
+        #self.redirect("/", permanent=True)#if permanent = true, when user refreshes, more form data will NOT be sent
     def get(self):
-        s = '\n\n\n\n\n\n\n\n\n\IN GET statement!!!\n\n\n\n\n'
-        str(s)
         self.render('login.html')#login.html page to be rendered
     '''def put(self):
         RETRIVE AND STORE USER DATA IN DATABASE'''
@@ -61,7 +52,7 @@ class ReportController(BaseController):
         self.render('report.html')
         
     class NewReportController(BaseController):
-        tornado.web.authenticated
+        @tornado.web.authenticated
         def get(self):
             self.render('create.html')
 	    #ADDED by Jimmy and david, incomplete sample code
@@ -88,7 +79,7 @@ def launch():
     global databaseControl
     databaseControl = databaseController.DatabaseController('localhost', 3306, 'testuser', 'test623', 'testdb')
 
-    #databaseControl.create_basic_user("6003091", "David", "Vizcaino", "dvizc001@fiu.edu", "dpnet")
+    #databaseControl.create_basic_user("6003090", "David", "Vizcaino", "dvizc002@fiu.edu", "dpnet")
 
     application = tornado.web.Application(handlers, **server_settings)
     http_server = tornado.httpserver.HTTPServer(application)
