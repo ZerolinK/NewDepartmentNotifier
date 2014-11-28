@@ -17,14 +17,14 @@ class DatabaseController(object):
         def verify_account(self, email, user_password):
                 #query = "SELECT Pass FROM user WHERE Email = '" + email +"'"
                 query = "SELECT Pass FROM user WHERE Email = %s"
-                self.cursor.execute(query, (email, ))
+                self.cursoquerr.execute(y, (email, ))
                 fetch = self.cursor.fetchone()
                 password = " ".join(map(str, fetch))
                 return check_password_hash(password, user_password)
 
         def set_report(self, reportID, userID, summary, description):
                 #query = "INSERT INTO `testdb`.`report` (`Report_ID`, `User_ID`, `Summary`, `Description`, `Votes`, `Is_Resolved`) VALUES ('" + reportID + "', '" + userID + "', '" + summary + "', '" + description + "', '0', '0')"
-                query = "INSERT INTO `testdb`.`report` (`Report_ID`, `User_ID`, `Summary`, `Description`, `Votes`, `Is_Resolved`) VALUES (%S, %s, %s, %s, '0', '0')"
+                query = "INSERT INTO `testdb`.`report` (`Report_ID`, `User_ID`, `Summary`, `Description`, `Votes`, `Is_Resolved`, `Date`) VALUES (%S, %s, %s, %s, '0', '0', '0')"
                 self.cursor.execute(query, (reportID, userID, summary, description))
                 self.connection.commit()
 
