@@ -77,8 +77,8 @@ class DatabaseController(object):
                 query = "SELECT Fname, LName FROM user WHERE EMail = %s"
                 self.cursor.execute(query, (userMail, ))
                 userData = ""
-                for (FName, lName) in self.cursor:
-                        userData = '"fName"' + '"lName"'
+                for (FName, LName) in self.cursor:
+                        userData = FName + " " + LName
                 self.connection.commit()
                 #userData = ""
                 #fetch = self.cursor.fetchone()
