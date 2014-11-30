@@ -1,5 +1,19 @@
 import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import date
+
+class Report(object):
+        def __init__(self, ReportID, UserID, Summary, Description, Votes, Is_resolved, Date):
+                self.reportID = ReportID
+                self.userID = UserID
+                self.summary = Summary
+                self.description = Description
+                self.votes = Votes
+                self.resolved = Is_resolved
+                self.date = Date
+        def make_report(ReportID, UserID, Summary, Description, Votes, Is_resolved, Date):
+                report = Report(ReportID, UserID, Summary, Description, Votes, Is_resolved, Date)
+
 
 class DatabaseController(object):
         def __init__(self, connection_address, connection_port, user_name, password, database):
@@ -24,7 +38,7 @@ class DatabaseController(object):
 
         def set_report(self, reportID, userID, summary, description):
                 #query = "INSERT INTO `testdb`.`report` (`Report_ID`, `User_ID`, `Summary`, `Description`, `Votes`, `Is_Resolved`) VALUES ('" + reportID + "', '" + userID + "', '" + summary + "', '" + description + "', '0', '0')"
-                query = "INSERT INTO `testdb`.`report` (`Report_ID`, `User_ID`, `Summary`, `Description`, `Votes`, `Is_Resolved`, `Date`) VALUES (%S, %s, %s, %s, '0', '0', '0')"
+                query = "INSERT INTO `testdb`.`report` (`Report_ID`, `User_ID`, `Summary`, `Description`, `Votes`, `Is_Resolved`) VALUES (%s, %s, %s, %s, '0', '0')"
                 self.cursor.execute(query, (reportID, userID, summary, description))
                 self.connection.commit()
 
@@ -60,10 +74,14 @@ class DatabaseController(object):
                 #query = "SELECT * FROM report WHERE Report_ID = " + reportID 
                 query = "SELECT * FROM report WHERE Report_ID = %s"
                 self.cursor.execute(query, (reportID, ))
+
+                for(Report_ID, User_ID, Summary, Description, Votes. Is_Resolved, Date) in self.cursor:
+                        reportData = make_report(Report_ID, User_ID, Summary, Description, Votes. Is_Resolved, Date)
+
                 self.connection.commit()
-                fetch = self.cursor.fetchone()
-                report = " ".join(map(str, fetch))
-                return report
+                return reportData
+                #fetch = self.cursor.fetchone()
+                #report = " ".join(map(str, fetch))
 
         def create_basic_user(self, userID, fName, lName, email, password):
                 password2 = generate_password_hash(password)
@@ -80,10 +98,6 @@ class DatabaseController(object):
                 for (FName, LName) in self.cursor:
                         userData = FName + " " + LName
                 self.connection.commit()
-                #userData = ""
-                #fetch = self.cursor.fetchone()
-                #while fetch is not None:
-                #        userData = userData + '"fetch"'
                 return userData
 
         def create_faculty_user(self, userID, fName, lName, email, password):
