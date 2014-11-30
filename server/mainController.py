@@ -65,7 +65,7 @@ class ReportController(BaseController):
     class NewReportController(BaseController):
         @tornado.web.authenticated
         def get(self):
-            self.render('create.html')
+            self.render('create.html', user = self.current_user, userID = self.get_secure_cookie("userID"))
         def post(self, Title, Description):
             totalReports = totalReports+1
             Title = self.get_argument("title")
