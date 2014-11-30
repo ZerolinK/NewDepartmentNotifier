@@ -11,6 +11,9 @@ html {
     border-right: 2px solid #000;
     padding-right: 5px;
 }
+.lookup {
+    text-align: center;
+}
 label   {
     display: inline-block;
     color: #000;
@@ -21,6 +24,12 @@ label   {
     margin-top: 20px;
     font-family: "Open Sans",sans-serif;
     font-size: 1em;
+    text-align: center;
+}
+.invalid {
+    color: red;
+    margin-top: 0px;
+    margin-bottom: 10px;
     text-align: center;
 }
 .cf:before,
