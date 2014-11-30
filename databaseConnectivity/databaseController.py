@@ -93,7 +93,7 @@ class DatabaseController(object):
         def create_report(self, newReport):
                 query = "INSERT INTO `testdb`.`report` ( `User_ID`, `Summary`, `Description`, `Votes`, `Is_Resolved`) VALUES (%s, %s, %s, '0', '0')"
                 self.cursor.execute(query, (newReport.userID, newReport.summary, newReport.description))
-                SELF.connection.commit 
+                self.connection.commit 
 
         def get_report(self, reportID): 
                 query = "SELECT * FROM report WHERE Report_ID = %s"
