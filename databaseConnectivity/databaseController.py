@@ -1,27 +1,29 @@
 import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import date
+import datetime
 
 class Report(object):
-        def __init__(self, ReportID, UserID, Summary, Description, Votes, Is_resolved):
+        def __init__(self, ReportID, UserID, Summary, Description, Votes, Is_resolved, Date):
                 self.reportID = ReportID
                 self.userID = UserID
                 self.summary = Summary
                 self.description = Description
                 self.votes = Votes
                 self.resolved = Is_resolved
-                #self.date = Date
-        def make_report(ReportID, UserID, Summary, Description, Votes, Is_resolved):
-                report = Report(ReportID, UserID, Summary, Description, Votes, Is_resolved)
+                self.date = Date
+        def make_report(ReportID, UserID, Summary, Description, Votes, Is_resolved, Date):
+                report = Report(ReportID, UserID, Summary, Description, Votes, Is_resolved, Date)
                 return report
 
 class User(object):
-        def __init__(self, UserID, Name, Role):
+        def __init__(self, FirstName, LastName, UserID, Email, Role):
+                self.First = FirstName
+                self.Last = LastName
                 self.ID = UserID
-                self.Name = Name
+                self.Email = Email
                 self.Role = Role
-        def make_user(UserID, Name, Role):
-                user = User(UserID, Name, Role)
+        def make_user(FirstName, LastName, UserID, Email, Role):
+                user = User(FirstName, LastName, UserID, Email, Role)
                 return user
 
 class DatabaseController(object):
@@ -45,10 +47,10 @@ class DatabaseController(object):
                 password = " ".join(map(str, fetch))
                 return check_password_hash(password, user_password)
 
-        def set_report(self, reportID, userID, summary, description):
+        def set_report(self, userID, summary, description):
                 #query = "INSERT INTO `testdb`.`report` (`Report_ID`, `User_ID`, `Summary`, `Description`, `Votes`, `Is_Resolved`) VALUES ('" + reportID + "', '" + userID + "', '" + summary + "', '" + description + "', '0', '0')"
-                query = "INSERT INTO `testdb`.`report` (`Report_ID`, `User_ID`, `Summary`, `Description`, `Votes`, `Is_Resolved`) VALUES (%s, %s, %s, %s, '0', '0')"
-                self.cursor.execute(query, (reportID, userID, summary, description))
+                query = "INSERT INTO `testdb`.`report` ( `User_ID`, `Summary`, `Description`, `Votes`, `Is_Resolved` ) VALUES ( %s, %s, %s, '0', '0')"
+                self.cursor.execute(query, (userID, summary, description))
                 self.connection.commit()
 
         def increment_vote(self, reportID):
@@ -79,13 +81,17 @@ class DatabaseController(object):
                 self.cursor.execute(query, (reportID, ))
                 self.connection.commit()
 
+        def create_report(self, newReport):
+                query = "INSERT INTO `testdb`.`report` ( `User_ID`, `Summary`, `Description`, `Votes`, `Is_Resolved`) VALUES (%s, %s, %s, '0', '0')"
+                self.cursor.execute(query, (newReport.userID, newReport.summary, newReport.description))
+                SELF.connection.commit 
+
         def get_report(self, reportID): 
                 query = "SELECT * FROM report WHERE Report_ID = %s"
                 self.cursor.execute(query, (reportID, ))
                 for(Report_ID, User_ID, Summary, Description, Votes, Is_Resolved) in self.cursor:
                         reportData = Report.make_report(Report_ID, User_ID, Summary, Description, Votes. Is_Resolved)
                         
-
                 self.connection.commit()
                 return reportData
 
@@ -93,8 +99,8 @@ class DatabaseController(object):
                 query = "SELECT * FROM `report` ORDER BY `report`.`Votes` DESC "
                 self.cursor.execute(query)
                 reportList = []
-                for (Report_ID, User_ID, Summary, Description, Votes, Is_Resolved) in self.cursor:
-                        reportData = Report.make_report(Report_ID, User_ID, Summary, Description, Votes, Is_Resolved)
+                for (Report_ID, User_ID, Summary, Description, Votes, Is_Resolved, Date) in self.cursor:
+                        reportData = Report.make_report(Report_ID, User_ID, Summary, Description, Votes, Is_Resolved, Date)
                         reportList.append(reportData)
                         #store into an object and add it to a list
                 return reportList
@@ -108,11 +114,10 @@ class DatabaseController(object):
 
         def get_basic_user(self, userMail):
                 #query = "SELECT * FROM user WHERE EMail = " + userMail
-                query = "SELECT Fname, LName, ID, Role FROM user WHERE EMail = %s"
+                query = "SELECT Fname, LName, Email, ID, Role FROM user WHERE EMail = %s"
                 self.cursor.execute(query, (userMail, ))
-                for (FName, LName, ID, Role) in self.cursor:
-                        userData = FName + " " + LName
-                        curUser = User.make_user(ID, userData, Role)
+                for (FName, LName, Email, ID, Role) in self.cursor:
+                        curUser = User.make_user(FName, LName, ID, Email, Role)
 
                 #curUser = User.make_user(ID, userData, Role)
                 self.connection.commit()
