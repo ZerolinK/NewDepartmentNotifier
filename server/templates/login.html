@@ -2,11 +2,14 @@
 <html>
 <head>
 	<title>HTML5 Login</title>
-	<link rel="stylesheet" href="../static/css/loginStyle.css">
+	<link rel="stylesheet" href="loginStyle.css">
 </head>
 <body>
     <div class="login">
 	<section class="loginform cf">
+        <div class="invalid">
+            <label class="invalid">Invalid Username or Password.</label>
+        </div>
 		<form name="login" action="/login" method="POST" accept-charset="utf-8">     
 			<ul>
 				<li>
@@ -21,10 +24,10 @@
 				</li>
 			</ul>
 		</form>
-        <form name="lookup" action="/lookup" method="get">
+        <div class="lookup">
             <label class="lookupID">Lookup FIU Email</label>
             <label class="lookupPS">Reset Password</label>
-        </form>
+        </div>
 	</section>
     </div>
 </body>
