@@ -83,8 +83,6 @@ class ReportController(BaseController):
             totalReports+=1 #need to fix this
             summary = self.get_argument("summary")
             description = self.get_argument("description")
-            print(summary)
-            print(description)
             newReport = databaseController.Report.make_report( self.get_secure_cookie("userID"), summary, description, 0, 0)
             databaseControl.create_report(newReport)
             self.redirect("/", permanent = true)
