@@ -36,7 +36,7 @@ class LoginController(BaseController):
         #tries = 0
         #while (tries < 3)
         if (databaseControl.verify_account(usermail, userpass)):
-            userData = databaseControl.get_basic_user(usermail)
+            userData = databaseControl.get_user(usermail)
             firstName = userData.First
             lastName = userData.Last
             userEmail = userData.Email
@@ -117,7 +117,7 @@ def launch():
     global databaseControl
     databaseControl = databaseController.DatabaseController('localhost', 3306, 'testuser', 'test623', 'testdb')
 
-    #databaseControl.create_basic_user("6003090", "David", "Vizcaino", "dvizc002@fiu.edu", "dpnet")
+    databaseControl.create_faculty_user("2995664", "Marc", "Roger", "mroge009@fiu.edu", "dpnet")
     #databaseControl.set_report("6003090", "Computer Login", "I cant log into my computer!")
     #databaseControl.set_report("6003090", "Computer Logout", "I cant log out of my computer!")
     #databaseControl.set_report("6003090", "Programming", "I dont know how to do this!")

@@ -112,7 +112,7 @@ class DatabaseController(object):
                 self.cursor.execute(query, (userID, fName, lName, email, password2))
                 self.connection.commit()
 
-        def get_basic_user(self, userMail):
+        def get_user(self, userMail):
                 #query = "SELECT * FROM user WHERE EMail = " + userMail
                 query = "SELECT Fname, LName, Email, ID, Role FROM user WHERE EMail = %s"
                 self.cursor.execute(query, (userMail, ))
@@ -127,7 +127,7 @@ class DatabaseController(object):
         def create_faculty_user(self, userID, fName, lName, email, password):
                 password2 = generate_password_hash(password)
                 #query = "INSERT INTO `testdb`.`user` (`ID`, `FName`, `LName`, `Email`, `Pass`, `Role`) VALUES ('" + userID + "', '" + fName + "', '" + lName + "', '" + email +"', '" + password2 + "', '1')"
-                query = "INSERT INTO `testdb`.`user` (`ID`, `FName`, `LName`, `Email`, `Pass`, `Role`) VALUES (%s, %s, %s, %s, %S, '1')"
+                query = "INSERT INTO `testdb`.`user` (`ID`, `FName`, `LName`, `Email`, `Pass`, `Role`) VALUES (%s, %s, %s, %s, %s, '1')"
                 self.cursor.execute(query, (userID, fName, lName, email, password2))
                 self.connection.commit()
         
