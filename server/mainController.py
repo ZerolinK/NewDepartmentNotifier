@@ -86,7 +86,7 @@ class ReportController(BaseController):
             description = self.get_argument("description")
             newReport = databaseController.Report.make_report( 0, self.get_secure_cookie("userID"), summary, description, 0, 0, 0)
             databaseControl.create_report(newReport)
-            self.redirect("/", permanent = true)
+            self.redirect("/", permanent = True)
 
 
 	    #ADDED by Jimmy and david, incomplete sample code
