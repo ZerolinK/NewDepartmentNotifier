@@ -13,7 +13,16 @@ class Report(object):
                 self.date = Date
         def make_report(ReportID, UserID, Summary, Description, Votes, Is_resolved, Date):
                 report = Report(ReportID, UserID, Summary, Description, Votes, Is_resolved, Date)
+                return report
 
+class User(object):
+        def __init__(self, UserID, Name, Role):
+                self.ID = UserID
+                self.Name = Name
+                self.Role = Role
+        def make_user(UserID, Name, Role):
+                user = User(UserID, Name, Role)
+                return user
 
 class DatabaseController(object):
         def __init__(self, connection_address, connection_port, user_name, password, database):
@@ -76,7 +85,7 @@ class DatabaseController(object):
                 self.cursor.execute(query, (reportID, ))
 
                 for(Report_ID, User_ID, Summary, Description, Votes. Is_Resolved, Date) in self.cursor:
-                        reportData = make_report(Report_ID, User_ID, Summary, Description, Votes. Is_Resolved, Date)
+                        reportData = Report.make_report(Report_ID, User_ID, Summary, Description, Votes. Is_Resolved, Date)
 
                 self.connection.commit()
                 return reportData
@@ -92,13 +101,16 @@ class DatabaseController(object):
 
         def get_basic_user(self, userMail):
                 #query = "SELECT * FROM user WHERE EMail = " + userMail
-                query = "SELECT Fname, LName FROM user WHERE EMail = %s"
+                query = "SELECT Fname, LName, ID, Role FROM user WHERE EMail = %s"
                 self.cursor.execute(query, (userMail, ))
-                userData = ""
-                for (FName, LName) in self.cursor:
+                for (FName, LName, ID, Role) in self.cursor:
                         userData = FName + " " + LName
+                        curUser = User.make_user(ID, userData, Role)
+
+                #curUser = User.make_user(ID, userData, Role)
                 self.connection.commit()
-                return userData
+                return curUser
+                #return userData
 
         def create_faculty_user(self, userID, fName, lName, email, password):
                 password2 = generate_password_hash(password)
@@ -109,6 +121,7 @@ class DatabaseController(object):
         
         def close_connection(self):
                 self.connection.close()
+
         
 #dbc = DatabaseController('localhost', 3306, 'testuser', 'test623', 'testdb')
 #dbc.create_basic_user("1586390", "Daniel", "Gonzalez", "dgonz023@fiu.edu", "dpnet")

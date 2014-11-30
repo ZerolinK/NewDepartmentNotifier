@@ -30,8 +30,13 @@ class LoginController(BaseController):
         #tries = 0
         #while (tries < 3)
         if (databaseControl.verify_account(usermail, userpass)):
-            username = databaseControl.get_basic_user(usermail)
+            userData = databaseControl.get_basic_user(usermail)
+            username = userData.Name
+            userID = userData.ID
+            userRole = userData.Role
             self.set_secure_cookie("name", username)#passed from html with the tag username
+            self.set_secure_cookie("userID", str(userID))
+            self.set_secure_cookie("userRole", str(userRole))
             self.redirect("/", permanent=True)
         '''TODO: return message stating password is incorrect and to try again'''
         #if PASSWORD is good, self.set_secure_cookie(username, self.get_argument("username"))
