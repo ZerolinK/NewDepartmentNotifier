@@ -89,7 +89,7 @@ class LoginController(BaseController):
 
 class ReportController(BaseController):
     def get(self):
-        self.render('report.html')
+        self.render('report.html', userRole = int(self.get_secure_cookie("userRole")))
         
     class NewReportController(BaseController):
         @tornado.web.authenticated
