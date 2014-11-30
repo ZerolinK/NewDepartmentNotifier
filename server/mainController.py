@@ -84,7 +84,7 @@ class ReportController(BaseController):
         def post(self):
             summary = self.get_argument("summary")
             description = self.get_argument("description")
-            newReport = databaseController.Report.make_report( self.get_secure_cookie("userID"), summary, description, 0, 0)
+            newReport = databaseController.Report.make_report( 0, self.get_secure_cookie("userID"), summary, description, 0, 0, 0)
             databaseControl.create_report(newReport)
             self.redirect("/", permanent = true)
 
