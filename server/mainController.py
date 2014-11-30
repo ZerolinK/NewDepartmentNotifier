@@ -117,11 +117,6 @@ def launch():
     global databaseControl
     databaseControl = databaseController.DatabaseController('localhost', 3306, 'testuser', 'test623', 'testdb')
 
-    databaseControl.create_faculty_user("2995664", "Marc", "Roger", "mroge009@fiu.edu", "dpnet")
-    #databaseControl.set_report("6003090", "Computer Login", "I cant log into my computer!")
-    #databaseControl.set_report("6003090", "Computer Logout", "I cant log out of my computer!")
-    #databaseControl.set_report("6003090", "Programming", "I dont know how to do this!")
-
 
     application = tornado.web.Application(handlers, **server_settings)
     http_server = tornado.httpserver.HTTPServer(application)

@@ -61,9 +61,18 @@ class DatabaseController(object):
                 curVote = " ".join(map(str, fetch))
                 intVote = int(curVote)
                 intVote = intVote + 1
+                newVote= str(intVote)
                 #query2 = "UPDATE `testdb`.`report` SET `Votes` = '" + str(intVote) + "' WHERE `report`.`Report_ID` = " + reportID
-                query2 = "UPDATE `testdb`.`report` SET `Votes` = '" + str(intVote) + "' WHERE `report`.`Report_ID` = %s"
-                self.cursor.execute(query2, (reportID, ))
+                query2 = "UPDATE `testdb`.`report` SET `Votes` = %s WHERE `report`.`Report_ID` = %s"
+                self.cursor.execute(query2, (newVote, reportID))
+                self.connection.commit()
+
+        def mark_solved(self, reportID):
+                fetch = self.cursor.fetchone()
+                curVote = " ".join(map(str, fetch))
+                resolved = "1"
+                query = "UPDATE `testdb`.`report` SET `Is_Resolved` = %s WHERE `report`.`Report_ID` = %s"
+                self.cursor.execute(query, (resolved ,reportID, ))
                 self.connection.commit()
 
         def get_vote(self, reportID):
@@ -89,8 +98,8 @@ class DatabaseController(object):
         def get_report(self, reportID): 
                 query = "SELECT * FROM report WHERE Report_ID = %s"
                 self.cursor.execute(query, (reportID, ))
-                for(Report_ID, User_ID, Summary, Description, Votes, Is_Resolved) in self.cursor:
-                        reportData = Report.make_report(Report_ID, User_ID, Summary, Description, Votes. Is_Resolved)
+                for(Report_ID, User_ID, Summary, Description, Votes, Is_Resolved, Date) in self.cursor:
+                        reportData = Report.make_report(Report_ID, User_ID, Summary, Description, Votes, Is_Resolved, Date)
                         
                 self.connection.commit()
                 return reportData

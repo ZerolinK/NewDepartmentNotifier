@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2014 at 08:37 PM
+-- Generation Time: Nov 30, 2014 at 10:58 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -69,8 +69,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`ID`, `FName`, `LName`, `Email`, `Pass`, `Role`) VALUES
 (1586390, 'Daniel', 'Gonzalez', 'dgonz023@fiu.edu', 'dpnet', 0),
-(6003090, 'David', 'Vizcaino', 'dvizc002@fiu.edu', 'pbkdf2:sha1:1000$2AayyrjX$a0b9194b7fe86f7e60fdf1118d626fd51c50b98f', 0),
-(6003091, 'David', 'Vizcaino', 'dvizc001@fiu.edu', 'pbkdf2:sha1:1000$9Rd47tiE$175906152e3c3b9f79b5aef015ce1d56d0d0895d', 0);
+(2995664, 'Marc', 'Roger', 'mroge009@fiu.edu', 'pbkdf2:sha1:1000$dViNo6Ky$a8830a16e96bb1ad786d0102994c76d7572daa4a', 1),
+(6003090, 'David', 'Vizcaino', 'dvizc002@fiu.edu', 'pbkdf2:sha1:1000$2AayyrjX$a0b9194b7fe86f7e60fdf1118d626fd51c50b98f', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
