@@ -39,17 +39,16 @@ class LoginController(BaseController):
         self.render('login.html')#login.html page to be rendered
     '''def put(self):
         RETRIVE AND STORE USER DATA IN DATABASE'''
-
-
     class LogoutController(BaseController):
-        def get(self):
-            self.clear_cookie("username")
+        def post(self):
             self.redirect("/", permanent = true)
-    #TODO: define this shit"""
+            self.clear_cookie("name")
+        
+#TODO: define this shit"""
 
 class ReportController(BaseController):
     def get(self):
-        self.render('report.html')
+        self.render('template.html')
         
     class NewReportController(BaseController):
         @tornado.web.authenticated

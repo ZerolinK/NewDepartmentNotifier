@@ -30,7 +30,7 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="index.html">Home</a>
+          <li class="active"><a href="/">Home</a>
           </li>
           <li><a href="profile.html">Profile</a>
           </li>
@@ -47,14 +47,20 @@
             </ul>
           </li>
         </ul>
+        {% if user is not None %}
+        <form name="logout" action="/logout" method="POST" accept-charset="utf-8"> 
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="">Logout</a>
+          <li><a href="logout">Logout</a>
           </li>
         </ul>
+        <form>
+        {%end%}
+        {% if user is None %}
         <ul class="nav navbar-nav navbar-right">
           <li><a href="login">Login</a>
           </li>
         </ul>
+        {%end%}
       </div>
       <!--/.nav-collapse -->
     </div>
