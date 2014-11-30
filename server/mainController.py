@@ -43,9 +43,6 @@ class LoginController(BaseController):
             userID = userData.ID
             userRole = userData.Role
             fullName = firstName + " " + lastName
-            print(fullName)
-            print(firstName)
-            print(lastName)
             self.set_secure_cookie("fullName", fullName)
             self.set_secure_cookie("Fname", firstName)#passed from html with the tag username
             self.set_secure_cookie("Lname", lastName)
@@ -63,7 +60,12 @@ class LoginController(BaseController):
     class LogoutController(BaseController):
         @tornado.web.authenticated
         def get(self):
-            self.clear_cookie("name")
+            self.clear_cookie("fullName")
+            self.clear_cookie("Fname")#passed from html with the tag username
+            self.clear_cookie("Lname")
+            self.clear_cookie("email")
+            self.clear_cookie("userID")
+            self.clear_cookie("userRole")
             self.redirect("/")
             
         
