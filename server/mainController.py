@@ -50,11 +50,13 @@ class LoginController(BaseController):
             self.set_secure_cookie("userID", str(userID))
             self.set_secure_cookie("userRole", str(userRole))
             self.redirect("/", permanent=True)
+        else:
+        	self.render('login.html', incorrect = True)
         '''TODO: return message stating password is incorrect and to try again'''
         #if PASSWORD is good, self.set_secure_cookie(username, self.get_argument("username"))
         #self.redirect("/", permanent=True)#if permanent = true, when user refreshes, more form data will NOT be sent
     def get(self):
-        self.render('login.html')#login.html page to be rendered
+        self.render('login.html', inccorrect = False)#login.html page to be rendered
     '''def put(self):
         RETRIVE AND STORE USER DATA IN DATABASE'''
     class LogoutController(BaseController):
@@ -80,7 +82,6 @@ class ReportController(BaseController):
         def get(self):
             self.render('create.html', user = self.current_user, userID = self.get_secure_cookie("userID"))
         def post(self):
-            totalReports+=1 #need to fix this
             summary = self.get_argument("summary")
             description = self.get_argument("description")
             newReport = databaseController.Report.make_report( self.get_secure_cookie("userID"), summary, description, 0, 0)
