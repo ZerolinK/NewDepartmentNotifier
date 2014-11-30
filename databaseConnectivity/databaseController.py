@@ -11,6 +11,10 @@ class Report(object):
                 self.votes = Votes
                 self.resolved = Is_resolved
                 self.date = Date
+        def make_new_report(UserID, Summary, Description, Votes, Is_resolved, Date):
+                report = Report(0, UserID, Summary, Description, Votes, Is_resolved, Date)
+                return report
+
         def make_report(ReportID, UserID, Summary, Description, Votes, Is_resolved, Date):
                 report = Report(ReportID, UserID, Summary, Description, Votes, Is_resolved, Date)
                 return report
@@ -91,8 +95,14 @@ class DatabaseController(object):
                 self.connection.commit()
 
         def create_report(self, newReport):
-                query = "INSERT INTO `testdb`.`report` ( `User_ID`, `Summary`, `Description`, `Votes`, `Is_Resolved`) VALUES (%s, %s, %s, '0', '0')"
-                self.cursor.execute(query, (newReport.userID, newReport.summary, newReport.description))
+                query = "INSERT INTO `testdb`.`report` (`Report_ID`, `User_ID`, `Summary`, `Description`, `Votes`, `Is_Resolved`, `Date`) VALUES (null, %s, %s, %s, '0', '0', CURRENT_TIMESTAMP)"
+                userID = str(newReport.userID)
+                summary = newReport.summary
+                description = newReport.description
+                print(userID)
+                print(summary)
+                print(description)
+                self.cursor.execute(query, (userID, summary, description))
                 self.connection.commit 
 
         def get_report(self, reportID): 

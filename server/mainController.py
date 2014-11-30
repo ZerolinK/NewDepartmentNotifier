@@ -84,17 +84,9 @@ class ReportController(BaseController):
         def post(self):
             summary = self.get_argument("summary")
             description = self.get_argument("description")
-            newReport = databaseController.Report.make_report( 0, self.get_secure_cookie("userID"), summary, description, 0, 0, 0)
-            databaseControl.create_report(newReport)
+            userID = int(self.get_secure_cookie("userID"))
+            databaseControl.set_report(str(userID), summary, description)
             self.redirect("/", permanent = True)
-
-
-	    #ADDED by Jimmy and david, incomplete sample code
-	    #def post(self):
-        #   totalReports = totalReports+1
-	    #	variable_1 = self.get_argument("form variable name here")
-	    #	....
-	        #put appropriate fetches from template here and send to database
 
 class UserProfileController(BaseController):
     @tornado.web.authenticated
@@ -117,7 +109,6 @@ def launch():
 
     global databaseControl
     databaseControl = databaseController.DatabaseController('localhost', 3306, 'testuser', 'test623', 'testdb')
-
 
     application = tornado.web.Application(handlers, **server_settings)
     http_server = tornado.httpserver.HTTPServer(application)
