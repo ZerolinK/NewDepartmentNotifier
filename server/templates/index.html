@@ -48,12 +48,10 @@
           </li>
         </ul>
         {% if user is not None %}
-        <form name="logout" action="/logout" method="POST" accept-charset="utf-8"> 
         <ul class="nav navbar-nav navbar-right">
           <li><a href="logout">Logout</a>
           </li>
         </ul>
-        <form>
         {%end%}
         {% if user is None %}
         <ul class="nav navbar-nav navbar-right">

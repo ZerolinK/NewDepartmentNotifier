@@ -40,9 +40,11 @@ class LoginController(BaseController):
     '''def put(self):
         RETRIVE AND STORE USER DATA IN DATABASE'''
     class LogoutController(BaseController):
-        def post(self):
-            self.redirect("/", permanent = true)
+        @tornado.web.authenticated
+        def get(self):
             self.clear_cookie("name")
+            self.redirect("/")
+            
         
 #TODO: define this shit"""
 
