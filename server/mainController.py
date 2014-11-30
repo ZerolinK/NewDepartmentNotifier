@@ -14,11 +14,15 @@ class BaseController(tornado.web.RequestHandler):
 
 class IndexController(BaseController):
     def get(self):
+        reportList = databaseControl.get_top_reports()
+        firstReport = reportList[0]
+        secondReport = reportList[1]
+        thirdReport = reportList[2]
         if (self.current_user is not None):
             username = self.current_user
-            self.render('index.html', user = username)
+            self.render('index.html', user = username, reportOne = firstReport, reportTwo = secondReport, reportThree = thirdReport)
         else:
-            self.render('index.html', user = None)
+            self.render('index.html', user = None, reportOne = firstReport, reportTwo = secondReport, reportThree = thirdReport)
 
 '''class WebPageController(tornado.web.RequestHandler):'''
     #TODO: define this shit
@@ -56,7 +60,7 @@ class LoginController(BaseController):
 
 class ReportController(BaseController):
     def get(self):
-        self.render('template.html')
+        self.render('report.html')
         
     class NewReportController(BaseController):
         @tornado.web.authenticated

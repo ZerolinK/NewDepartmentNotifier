@@ -3,16 +3,16 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import date
 
 class Report(object):
-        def __init__(self, ReportID, UserID, Summary, Description, Votes, Is_resolved, Date):
+        def __init__(self, ReportID, UserID, Summary, Description, Votes, Is_resolved):
                 self.reportID = ReportID
                 self.userID = UserID
                 self.summary = Summary
                 self.description = Description
                 self.votes = Votes
                 self.resolved = Is_resolved
-                self.date = Date
-        def make_report(ReportID, UserID, Summary, Description, Votes, Is_resolved, Date):
-                report = Report(ReportID, UserID, Summary, Description, Votes, Is_resolved, Date)
+                #self.date = Date
+        def make_report(ReportID, UserID, Summary, Description, Votes, Is_resolved):
+                report = Report(ReportID, UserID, Summary, Description, Votes, Is_resolved)
                 return report
 
 class User(object):
@@ -79,18 +79,25 @@ class DatabaseController(object):
                 self.cursor.execute(query, (reportID, ))
                 self.connection.commit()
 
-        def get_report(self, reportID):
-                #query = "SELECT * FROM report WHERE Report_ID = " + reportID 
+        def get_report(self, reportID): 
                 query = "SELECT * FROM report WHERE Report_ID = %s"
                 self.cursor.execute(query, (reportID, ))
-
-                for(Report_ID, User_ID, Summary, Description, Votes. Is_Resolved, Date) in self.cursor:
-                        reportData = Report.make_report(Report_ID, User_ID, Summary, Description, Votes. Is_Resolved, Date)
+                for(Report_ID, User_ID, Summary, Description, Votes, Is_Resolved) in self.cursor:
+                        reportData = Report.make_report(Report_ID, User_ID, Summary, Description, Votes. Is_Resolved)
+                        
 
                 self.connection.commit()
                 return reportData
-                #fetch = self.cursor.fetchone()
-                #report = " ".join(map(str, fetch))
+
+        def get_top_reports(self):
+                query = "SELECT * FROM `report` ORDER BY `report`.`Votes` DESC "
+                self.cursor.execute(query)
+                reportList = []
+                for (Report_ID, User_ID, Summary, Description, Votes, Is_Resolved) in self.cursor:
+                        reportData = Report.make_report(Report_ID, User_ID, Summary, Description, Votes, Is_Resolved)
+                        reportList.append(reportData)
+                        #store into an object and add it to a list
+                return reportList
 
         def create_basic_user(self, userID, fName, lName, email, password):
                 password2 = generate_password_hash(password)
