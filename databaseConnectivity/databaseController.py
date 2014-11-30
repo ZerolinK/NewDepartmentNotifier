@@ -121,7 +121,6 @@ class DatabaseController(object):
                 for (Report_ID, User_ID, Summary, Description, Votes, Is_Resolved, Date) in self.cursor:
                         reportData = Report.make_report(Report_ID, User_ID, Summary, Description, Votes, Is_Resolved, Date)
                         reportList.append(reportData)
-                        #store into an object and add it to a list
                 return reportList
 
         def create_basic_user(self, userID, fName, lName, email, password):

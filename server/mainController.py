@@ -18,13 +18,29 @@ class IndexController(BaseController):
         firstReport = reportList[0]
         secondReport = reportList[1]
         thirdReport = reportList[2]
+        if (reportList[3] is not None):
+        	fourthReport = reportList[3]
+        else:
+        	fourthReport = None
+        if (reportList[4] is not None):
+        	fifthReport = reportList[4]
+        else:
+        	fifthReport = None
+        if (reportList[5] is not None):
+        	sixthReport = reportList[5]
+        else:
+        	sixthReport = None
+        if (reportList[6] is not None):
+        	seventhReport = reportList[6]
+        else:
+        	seventhReport = None
         first = str(self.get_secure_cookie("Fname"))
         last = str(self.get_secure_cookie("Lname"))
         if (self.current_user is not None):
             username = first+" "+ last
-            self.render('index.html', user = self.get_secure_cookie("fullName"), reportOne = firstReport, reportTwo = secondReport, reportThree = thirdReport)
+            self.render('index.html', user = self.get_secure_cookie("fullName"), reportOne = firstReport, reportTwo = secondReport, reportThree = thirdReport, reportFour = fourthReport, reportFive = fifthReport, reportSix = sixthReport, reportSeven = seventhReport)
         else:
-            self.render('index.html', user = None, reportOne = firstReport, reportTwo = secondReport, reportThree = thirdReport)
+            self.render('index.html', user = None, reportOne = firstReport, reportTwo = secondReport, reportThree = thirdReport, reportFour = fourthReport, reportFive = fifthReport, reportSix = sixthReport, reportSeven = seventhReport)
 
 '''class WebPageController(tornado.web.RequestHandler):'''
     #TODO: define this shit
@@ -33,8 +49,6 @@ class LoginController(BaseController):
     def post(self):
         usermail = self.get_argument("usermail")
         userpass = self.get_argument("password")
-        #tries = 0
-        #while (tries < 3)
         if (databaseControl.verify_account(usermail, userpass)):
             userData = databaseControl.get_user(usermail)
             firstName = userData.First
