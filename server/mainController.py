@@ -56,7 +56,7 @@ class LoginController(BaseController):
         #if PASSWORD is good, self.set_secure_cookie(username, self.get_argument("username"))
         #self.redirect("/", permanent=True)#if permanent = true, when user refreshes, more form data will NOT be sent
     def get(self):
-        self.render('login.html', inccorrect = False)#login.html page to be rendered
+        self.render('login.html', incorrect = False)#login.html page to be rendered
     '''def put(self):
         RETRIVE AND STORE USER DATA IN DATABASE'''
     class LogoutController(BaseController):

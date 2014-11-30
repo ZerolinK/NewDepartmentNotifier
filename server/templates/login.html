@@ -8,10 +8,9 @@
     <div class="login">
 	<section class="loginform cf">
         <div class="invalid">
-        	{% if incorrect %}
+        	{% if incorrect is True %}
             <label class="invalid">Invalid Username or Password.</label>
             {%end%}
-        	}
         </div>
 		<form name="login" action="/login" method="POST" accept-charset="utf-8">     
 			<ul>
