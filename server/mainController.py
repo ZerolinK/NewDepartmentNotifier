@@ -93,17 +93,19 @@ class ViewController(BaseController):
             #renders view of selected report
             report = databaseControl.get_report(reportID)
             self.render('report.html', fullName = self.get_secure_cookie("fullName"), userRole = int(self.get_secure_cookie("userRole")), curReport = report, liked = False)
-
+        @tornado.web.authenticated    
         def post(self, reportID, updateType):
-            #updates report based on user action
-            if (updateType is 0):
-                #mark as solved
+		    #updates report based on user action
+            update = int(updateType)
+            if (update is 0):
+			    #mark as solved
                 databaseControl.mark_solved(reportID)
                 report = databaseControl.get_report(reportID)
                 self.render('report.html', fullName = self.get_secure_cookie("fullName"), userRole = int(self.get_secure_cookie("userRole")), curReport = report, liked = False)
-            if (updateType is 1):
+            elif (update is 1):
                 #add one more vote
-                databseControl.increment_vote(reportID)
+                databaseControl.increment_vote(reportID)
+                report = databaseControl.get_report(reportID)
                 self.render('report.html', fullName = self.get_secure_cookie("fullName"), userRole = int(self.get_secure_cookie("userRole")), curReport = report, liked = True)
 
     class NewReportController(BaseController):
@@ -136,7 +138,7 @@ def launch():
     handlers = [ (r'/', IndexController),
         (r'/reports', ViewController),
         (r'/report/(.*)', ViewController.ReportController),
-        (r'/report/(.*)/(.*)', ViewController.ReportController),
+        (r'/(.*)/(.*)', ViewController.ReportController),
         (r'/create', ViewController.NewReportController), 
         (r'/login', LoginController), 
         (r'/logout', LoginController.LogoutController),
@@ -144,7 +146,7 @@ def launch():
 
     global databaseControl
     databaseControl = databaseController.DatabaseController('localhost', 3306, 'testuser', 'test623', 'testdb')
-
+    #databaseControl.create_basic_user("3654955", "Steve", "Ignetti", "signe001@fiu.edu", "dpnet")
     application = tornado.web.Application(handlers, **server_settings)
     http_server = tornado.httpserver.HTTPServer(application)
     http_server.listen(options.port)

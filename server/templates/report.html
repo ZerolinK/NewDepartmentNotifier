@@ -32,11 +32,11 @@
         <ul class="nav navbar-nav">
           <li><a href="/">Home</a>
           </li>
-          <li><a href="profile">Profile</a>
+          <li><a href="/profile">Profile</a>
           </li>
-          <li class="active"><a href="reports">View</a>
+          <li class="active"><a href="/reports">View</a>
           </li>
-          <li><a href="create">Create</a>
+          <li><a href="/create">Create</a>
           </li>
           <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Manage<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
@@ -74,8 +74,8 @@
       <div class="col-md-7">
         <div class="panel panel-default panel-transparent">
           <div class="panel-body">
-          {%if userRole is 1%}
-          <form name="solved" action="/report/{{curReport.reportID}}/0" method="POST" accept-charset="utf-8">  
+          {%if userRole is 1 and curReport.resolved is not 1%}
+          <form name="solved" action="/{{curReport.reportID}}/0" method="POST" accept-charset="utf-8">  
 		  <input type="submit" value="Mark as Solved">
           </form>
           {%end%}
@@ -110,8 +110,8 @@
                       <td><b>Likes</b>
                       </td>
                       <td>{{curReport.votes}}
-                      {%if liked is False%}
-                      <form name="solved" action="/report/{{curReport.reportID}}/1" method="POST" accept-charset="utf-8">
+                      {%if liked is False and userRole is not 1 %}
+                      <form name="solved" action="/{{curReport.reportID}}/1" method="POST" accept-charset="utf-8">
                       <button class="btn btn-primary btn-xs">+1</button></td>
                       </form>
                       {%end%}

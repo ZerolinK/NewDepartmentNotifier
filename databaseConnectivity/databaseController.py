@@ -72,11 +72,8 @@ class DatabaseController(object):
                 self.connection.commit()
 
         def mark_solved(self, reportID):
-                fetch = self.cursor.fetchone()
-                curVote = " ".join(map(str, fetch))
-                resolved = "1"
-                query = "UPDATE `testdb`.`report` SET `Is_Resolved` = %s WHERE `report`.`Report_ID` = %s"
-                self.cursor.execute(query, (resolved ,reportID, ))
+                query = "UPDATE `testdb`.`report` SET `Is_Resolved` = 1 WHERE `report`.`Report_ID` = %s"
+                self.cursor.execute(query, (reportID, ))
                 self.connection.commit()
 
         def get_vote(self, reportID):
