@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2014 at 10:58 PM
+-- Generation Time: Dec 01, 2014 at 04:14 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `report` (
   `Is_Resolved` tinyint(1) NOT NULL,
   `Date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Report_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
 
 --
 -- Dumping data for table `report`
@@ -44,7 +44,11 @@ CREATE TABLE IF NOT EXISTS `report` (
 INSERT INTO `report` (`Report_ID`, `User_ID`, `Summary`, `Description`, `Votes`, `Is_Resolved`, `Date`) VALUES
 (1, 6003090, 'Computer Login', 'I cant log into my computer!', 0, 0, '2014-11-30 13:54:49'),
 (2, 6003090, 'Computer Logout', 'I cant log out of my computer!', 0, 0, '2014-11-30 13:54:49'),
-(3, 6003090, 'Programming', 'I dont know how to do this!', 0, 0, '2014-11-30 13:54:49');
+(3, 6003090, 'Programming', 'I dont know how to do this!', 0, 0, '2014-11-30 13:54:49'),
+(36, 6003090, 'No food', 'We''re starving', 0, 0, '2014-11-30 18:22:08'),
+(37, 6003090, 'Bike Pump', 'It''s broken', 0, 0, '2014-11-30 18:22:34'),
+(38, 6003090, 'Broken Mac', 'Mac desktop in lab is broken.', 0, 0, '2014-11-30 18:23:04'),
+(39, 6003090, 'Broken window', 'Window broken in JCCL', 0, 0, '2014-11-30 18:24:05');
 
 -- --------------------------------------------------------
 
