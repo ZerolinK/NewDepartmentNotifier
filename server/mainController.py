@@ -12,8 +12,10 @@ class BaseController(tornado.web.RequestHandler):
     def get_current_user(self):
         return self.get_secure_cookie("fullName")
 
+
 class IndexController(BaseController):
     def get(self):
+        #gets top reports and populates entry in index.html, then renders it
         reportList = databaseControl.get_top_reports()
         firstReport = reportList[0]
         secondReport = reportList[1]
@@ -38,9 +40,11 @@ class IndexController(BaseController):
         last = str(self.get_secure_cookie("Lname"))
         if (self.current_user is not None):
             username = first+" "+ last
-            self.render('index.html', user = self.get_secure_cookie("fullName"), reportOne = firstReport, reportTwo = secondReport, reportThree = thirdReport, reportFour = fourthReport, reportFive = fifthReport, reportSix = sixthReport, reportSeven = seventhReport)
+            self.render('index.html', user = self.get_secure_cookie("fullName"), reportOne = firstReport, reportTwo = secondReport,
+             reportThree = thirdReport, reportFour = fourthReport, reportFive = fifthReport, reportSix = sixthReport, reportSeven = seventhReport)
         else:
-            self.render('index.html', user = None, reportOne = firstReport, reportTwo = secondReport, reportThree = thirdReport, reportFour = fourthReport, reportFive = fifthReport, reportSix = sixthReport, reportSeven = seventhReport)
+            self.render('index.html', user = None, reportOne = firstReport, reportTwo = secondReport, reportThree = thirdReport,
+             reportFour = fourthReport, reportFive = fifthReport, reportSix = sixthReport, reportSeven = seventhReport)
 
 '''class WebPageController(tornado.web.RequestHandler):'''
     #TODO: define this shit
@@ -58,7 +62,7 @@ class LoginController(BaseController):
             userRole = userData.Role
             fullName = firstName + " " + lastName
             self.set_secure_cookie("fullName", fullName)
-            self.set_secure_cookie("Fname", firstName)#passed from html with the tag username
+            self.set_secure_cookie("Fname", firstName)
             self.set_secure_cookie("Lname", lastName)
             self.set_secure_cookie("email", userEmail)
             self.set_secure_cookie("userID", str(userID))
@@ -66,55 +70,55 @@ class LoginController(BaseController):
             self.redirect("/", permanent=True)
         else:
         	self.render('login.html', incorrect = True)
-        '''TODO: return message stating password is incorrect and to try again'''
-        #if PASSWORD is good, self.set_secure_cookie(username, self.get_argument("username"))
-        #self.redirect("/", permanent=True)#if permanent = true, when user refreshes, more form data will NOT be sent
     def get(self):
-        self.render('login.html', incorrect = False)#login.html page to be rendered
+        self.render('login.html', incorrect = False)
+
     class LogoutController(BaseController):
         @tornado.web.authenticated
         def get(self):
             self.clear_cookie("fullName")
-            self.clear_cookie("Fname")#passed from html with the tag username
+            self.clear_cookie("Fname")
             self.clear_cookie("Lname")
             self.clear_cookie("email")
             self.clear_cookie("userID")
             self.clear_cookie("userRole")
             self.redirect("/")
             
-        
-#TODO: define this shit"""
 
 class ViewController(BaseController):
     def get(self):
+        #renders view of all reports, ranked by votes
         reportList = databaseControl.get_top_reports()
         self.render('view.html', fullName= self.get_secure_cookie("fullName"), reportList = reportList )
 
     class ReportController(BaseController):
 	    @tornado.web.authenticated
 	    def get(self, reportID):
-	        #print(reportID)
+	        #renders view of selected report
 	        report = databaseControl.get_report(reportID)
 	        self.render('report.html', fullName = self.get_secure_cookie("fullName"), userRole = int(self.get_secure_cookie("userRole")), curReport = report, liked = False)
 
     class NewReportController(BaseController):
         @tornado.web.authenticated
         def get(self):
+            #renders view of report creation template
             self.render('create.html', user = self.current_user, userID = self.get_secure_cookie("userID"))
-
         def post(self):
+            #adds report from template into the database
             summary = self.get_argument("summary")
             description = self.get_argument("description")
             userID = int(self.get_secure_cookie("userID"))
             databaseControl.set_report(str(userID), summary, description)
             self.redirect("/", permanent = True)
 
+
 class UserProfileController(BaseController):
     @tornado.web.authenticated
     def get(self):
-        self.render('profile.html', fullName= self.get_secure_cookie("fullName"), firstName= self.get_secure_cookie("Fname"), lastName = self.get_secure_cookie("Lname"), userID = self.get_secure_cookie("userID"), userEmail = self.get_secure_cookie("email") )
-    #TODO: define this shit
-    
+        self.render('profile.html', fullName= self.get_secure_cookie("fullName"), firstName= self.get_secure_cookie("Fname"), lastName = self.get_secure_cookie("Lname"),
+         userID = self.get_secure_cookie("userID"), userEmail = self.get_secure_cookie("email") )
+
+
 def launch():
     server_settings = {"static_path": os.path.join(os.path.dirname(__file__), "./static"), 
     "template_path": "./server/templates", 
