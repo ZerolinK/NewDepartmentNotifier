@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2014 at 04:14 AM
+-- Generation Time: Dec 01, 2014 at 05:31 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -42,13 +42,13 @@ CREATE TABLE IF NOT EXISTS `report` (
 --
 
 INSERT INTO `report` (`Report_ID`, `User_ID`, `Summary`, `Description`, `Votes`, `Is_Resolved`, `Date`) VALUES
-(1, 6003090, 'Computer Login', 'I cant log into my computer!', 0, 0, '2014-11-30 13:54:49'),
-(2, 6003090, 'Computer Logout', 'I cant log out of my computer!', 0, 0, '2014-11-30 13:54:49'),
-(3, 6003090, 'Programming', 'I dont know how to do this!', 0, 0, '2014-11-30 13:54:49'),
-(36, 6003090, 'No food', 'We''re starving', 0, 0, '2014-11-30 18:22:08'),
-(37, 6003090, 'Bike Pump', 'It''s broken', 0, 0, '2014-11-30 18:22:34'),
-(38, 6003090, 'Broken Mac', 'Mac desktop in lab is broken.', 0, 0, '2014-11-30 18:23:04'),
-(39, 6003090, 'Broken window', 'Window broken in JCCL', 0, 0, '2014-11-30 18:24:05');
+(1, 6003090, 'Computer Login', 'I can''t log into my computer! Other people have tried to log in also, but they can''t log in either!', 8, 0, '2014-11-30 13:54:49'),
+(2, 6003090, 'Computer Logout', 'I was able to log into my computer, but now it hangs on the logout screen and wont log out at all.', 2, 0, '2014-11-30 13:54:49'),
+(3, 6003090, 'Programming', 'I dont know how to do this! Can someone please help me!', 7, 0, '2014-11-30 13:54:49'),
+(36, 6003090, 'No food', 'We''re starving. There''s absolutely no food in the vending machines!', 0, 0, '2014-11-30 18:22:08'),
+(37, 6003090, 'Bike Pump', 'The bike pump near the computer science parking lot is broken. Can someone fix it soon please?', 3, 0, '2014-11-30 18:22:34'),
+(38, 6003090, 'Broken Mac', 'Mac desktop in lab is broken. But no one really cares.', 1, 0, '2014-11-30 18:23:04'),
+(39, 6003090, 'Broken window', 'Window broken in JCCL. Please fix this. It is unsightly.', 2, 0, '2014-11-30 18:24:05');
 
 -- --------------------------------------------------------
 
@@ -72,7 +72,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`ID`, `FName`, `LName`, `Email`, `Pass`, `Role`) VALUES
-(1586390, 'Daniel', 'Gonzalez', 'dgonz023@fiu.edu', 'dpnet', 0),
 (2995664, 'Marc', 'Roger', 'mroge009@fiu.edu', 'pbkdf2:sha1:1000$dViNo6Ky$a8830a16e96bb1ad786d0102994c76d7572daa4a', 1),
 (6003090, 'David', 'Vizcaino', 'dvizc002@fiu.edu', 'pbkdf2:sha1:1000$2AayyrjX$a0b9194b7fe86f7e60fdf1118d626fd51c50b98f', 0);
 
