@@ -109,8 +109,10 @@ class DatabaseController(object):
                 query = "SELECT * FROM report WHERE Report_ID = %s"
                 self.cursor.execute(query, (reportID, ))
                 for(Report_ID, User_ID, Summary, Description, Votes, Is_Resolved, Date) in self.cursor:
+                        print(Report_ID)
+                        print(User_ID)
+                        print(Summary)
                         reportData = Report.make_report(Report_ID, User_ID, Summary, Description, Votes, Is_Resolved, Date)
-                        
                 self.connection.commit()
                 return reportData
 
@@ -131,16 +133,12 @@ class DatabaseController(object):
                 self.connection.commit()
 
         def get_user(self, userMail):
-                #query = "SELECT * FROM user WHERE EMail = " + userMail
                 query = "SELECT Fname, LName, Email, ID, Role FROM user WHERE EMail = %s"
                 self.cursor.execute(query, (userMail, ))
                 for (FName, LName, Email, ID, Role) in self.cursor:
                         curUser = User.make_user(FName, LName, ID, Email, Role)
-
-                #curUser = User.make_user(ID, userData, Role)
                 self.connection.commit()
                 return curUser
-                #return userData
 
         def create_faculty_user(self, userID, fName, lName, email, password):
                 password2 = generate_password_hash(password)

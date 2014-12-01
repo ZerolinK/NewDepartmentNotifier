@@ -67,7 +67,7 @@
           <div class="panel-body">
             <a href=""><img class="img-responsive" src="../static/profile.png" alt="...">
             </a>
-            <h5 class="text-center">Guido Ruiz</h5>
+            <h5 class="text-center">{{fullName}}</h5>
           </div>
         </div>
       </div>
@@ -78,7 +78,9 @@
 		  <input type="submit" value="Mark as Solved">
           {%end%}
             <h4 class="text-center">Reports</h4>
+            {%if curReport.resolved is 1 %}
               <h5 class="text-center" style="color:red">This report has been marked solved.</h5>
+            {%end%}
             <div class="panel panel-default panel-transparent">
               <div class="panel-body">
                 <!-- <div class="row"> -->
@@ -90,7 +92,7 @@
                   <tr>
                       <td><b>Title</b>
                       </td>
-                      <td>Problem with a PC</td>
+                      <td>{{curReport.summary}}</td>
                   </tr>
                   <tr>
                       <td><b>Department</b>
@@ -100,12 +102,15 @@
                   <tr>
                       <td><b>Date</b>
                       </td>
-                      <td>11/28/2014</td>
+                      <td>{{curReport.date}}</td>
                   </tr>
                   <tr>
                       <td><b>Likes</b>
                       </td>
-                      <td>43 <button class="btn btn-primary btn-xs">+1</button></td>
+                      <td>{{curReport.votes}}
+                      {%if liked is False%}
+                      <button class="btn btn-primary btn-xs" onclick={%liked = True%}style="display: none"{% databaseControl.increment_vote(curReport.reportID)%}{%end%} style="display: none">+1</button></td>
+                      {%end%}
                   </tr>
                   <tr>
                       <td><b>Author</b>
@@ -117,13 +122,7 @@
                 <!-- </div> -->
                 <h5 class="text-center">Description</h5>
                 <div class="panel panel-default panel-transparent">
-                  <div class="panel-body">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  <div class="panel-body">{{curReport.description}}
                   </div>
                 </div>
                 <hr>

@@ -90,12 +90,13 @@ class ViewController(BaseController):
         reportList = databaseControl.get_top_reports()
         self.render('view.html', fullName= self.get_secure_cookie("fullName"), reportList = reportList )
 
-
     class ReportController(BaseController):
 	    @tornado.web.authenticated
-	    def get(self, curReport):
-	        self.render('report.html', userRole = int(self.get_secure_cookie("userRole")), report = curReport)
-        
+	    def get(self, reportID):
+	        #print(reportID)
+	        report = databaseControl.get_report(reportID)
+	        self.render('report.html', fullName = self.get_secure_cookie("fullName"), userRole = int(self.get_secure_cookie("userRole")), curReport = report, liked = False)
+
     class NewReportController(BaseController):
         @tornado.web.authenticated
         def get(self):
@@ -122,7 +123,7 @@ def launch():
 
     handlers = [ (r'/', IndexController),
         (r'/reports', ViewController),
-        (r'/report', ViewController.ReportController),
+        (r'/report/(.*)', ViewController.ReportController),
         (r'/create', ViewController.NewReportController), 
         (r'/login', LoginController), 
         (r'/logout', LoginController.LogoutController),
