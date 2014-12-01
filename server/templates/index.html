@@ -96,7 +96,7 @@
 
               <div class="carousel-inner" role="listbox">
                 {% if reportOne is not None %}
-                <div class="item active"> <img src="../static/1.jpg" alt="...">
+                <div class="item active"> <a href = "report/{{reportOne.reportID}}"><img src="../static/1.jpg" alt="..." ></a>
                   <div class="carousel-caption">
                     <h3>{{reportOne.summary}}</h3>
                     <p>{{reportOne.description}}</p>
@@ -104,7 +104,7 @@
                 </div>
                 {%end%}
                 {% if reportTwo is not None %}
-                <div class="item"> <img src="../static/2.jpg" alt="...">
+                <div class="item"> <a href = "report/{{reportTwo.reportID}}"> <img src="../static/2.jpg" alt="..." ></a>
                   <div class="carousel-caption">
                     <h3>{{reportTwo.summary}}</h3>
                     <p>{{reportTwo.description}}</p>
@@ -112,7 +112,7 @@
                 </div>
                 {%end%}
                 {% if reportThree is not None %}
-                <div class="item"> <img src="../static/3.jpg" alt="...">
+                <div class="item"> <a href = "report/{{reportOne.reportID}}"> <img src="../static/3.jpg" alt="..." ></a>
                   <div class="carousel-caption">
                     <h3>{{reportThree.summary}}</h3>
                     <p>{{reportThree.description}}</p>
@@ -135,9 +135,9 @@
                   <div class="panel-body">
                     {%if reportFour is not None%}
                     <div class="media">
-                      <a class="media-left" href="#"> <img class="image" src="../static/place.png" alt="..."> </a>
+                      <a class="media-left" href="report/{{reportFour.reportID}}"> <img class="image" src="../static/place.png" alt="..."> </a>
                       <div class="media-body">
-                        <a href="template.html"><h4 class="media-heading">{{reportFour.summary}}</h4></a>
+                        <a href="report/{{reportFour.reportID}}"><h4 class="media-heading">{{reportFour.summary}}</h4></a>
                         <p>{{reportFour.description}}</p>
                       </div>
                     </div>
@@ -145,9 +145,9 @@
                     {%end%}
                     {%if reportFive is not None%}
                     <div class="media">
-                      <a class="media-left" href="#"> <img class="image" src="../static/place.png" alt="..."> </a>
+                      <a class="media-left" href="report/{{reportFive.reportID}}"> <img class="image" src="../static/place.png" alt="..."> </a>
                       <div class="media-body">
-                        <h4 href="template.html" class="media-heading">{{reportFive.summary}}</h4>
+                        <h4 href="report/{{reportFive.reportID}}" class="media-heading">{{reportFive.summary}}</h4>
                         <p>{{reportFive.description}}</p>
                       </div>
                     </div>
@@ -155,9 +155,9 @@
                     {%end%}
                     {%if reportSix is not None%}
                     <div class="media">
-                      <a class="media-left" href="#"> <img class="image" src="../static/place.png" alt="..."> </a>
+                      <a class="media-left" href="report/{{reportSix.reportID}}"> <img class="image" src="../static/place.png" alt="..."> </a>
                       <div class="media-body">
-                        <h4 href="template.html" class="media-heading">{{reportSix.summary}}</h4>
+                        <h4 href="report/{{reportSix.reportID}}" class="media-heading">{{reportSix.summary}}</h4>
                         <p>{{reportSix.description}}</p>
                       </div>
                     </div>

@@ -47,10 +47,18 @@
             </ul>
           </li>
         </ul>
+        {% if fullName is not None %}
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="">Logout</a>
+          <li><a href="logout">Logout</a>
           </li>
         </ul>
+        {%end%}
+        {% if fullName is None %}
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="login">Login</a>
+          </li>
+        </ul>
+        {%end%}
       </div>
       <!--/.nav-collapse -->
     </div>

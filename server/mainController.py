@@ -78,7 +78,7 @@ class LoginController(BaseController):
             self.clear_cookie("email")
             self.clear_cookie("userID")
             self.clear_cookie("userRole")
-            self.redirect("/")
+            self.render("logout.html")
             
 
 class ViewController(BaseController):

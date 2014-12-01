@@ -109,9 +109,6 @@ class DatabaseController(object):
                 query = "SELECT * FROM report WHERE Report_ID = %s"
                 self.cursor.execute(query, (reportID, ))
                 for(Report_ID, User_ID, Summary, Description, Votes, Is_Resolved, Date) in self.cursor:
-                        print(Report_ID)
-                        print(User_ID)
-                        print(Summary)
                         reportData = Report.make_report(Report_ID, User_ID, Summary, Description, Votes, Is_Resolved, Date)
                 self.connection.commit()
                 return reportData
