@@ -92,11 +92,23 @@ class ViewController(BaseController):
         self.render('view.html', fullName= self.get_secure_cookie("fullName"), reportList = reportList )
 
     class ReportController(BaseController):
-	    @tornado.web.authenticated
-	    def get(self, reportID):
-	        #renders view of selected report
-	        report = databaseControl.get_report(reportID)
-	        self.render('report.html', fullName = self.get_secure_cookie("fullName"), userRole = int(self.get_secure_cookie("userRole")), curReport = report, liked = False)
+        @tornado.web.authenticated
+        def get(self, reportID):
+            #renders view of selected report
+            report = databaseControl.get_report(reportID)
+            self.render('report.html', fullName = self.get_secure_cookie("fullName"), userRole = int(self.get_secure_cookie("userRole")), curReport = report, liked = False)
+
+        def post(self, reportID, updateType):
+            #updates report based on user action
+            if (updateType is 0):
+                #mark as solved
+                databaseControl.mark_solved(reportID)
+                report = databaseControl.get_report(reportID)
+                self.render('report.html', fullName = self.get_secure_cookie("fullName"), userRole = int(self.get_secure_cookie("userRole")), curReport = report, liked = False)
+            if (updateType is 1):
+                #add one more vote
+                databseControl.increment_vote(reportID)
+                self.render('report.html', fullName = self.get_secure_cookie("fullName"), userRole = int(self.get_secure_cookie("userRole")), curReport = report, liked = True)
 
     class NewReportController(BaseController):
         @tornado.web.authenticated
@@ -128,6 +140,7 @@ def launch():
     handlers = [ (r'/', IndexController),
         (r'/reports', ViewController),
         (r'/report/(.*)', ViewController.ReportController),
+        (r'/report/(.*)/(.*)', ViewController.ReportController),
         (r'/create', ViewController.NewReportController), 
         (r'/login', LoginController), 
         (r'/logout', LoginController.LogoutController),

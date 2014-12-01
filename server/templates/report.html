@@ -75,7 +75,9 @@
         <div class="panel panel-default panel-transparent">
           <div class="panel-body">
           {%if userRole is 1%}
+          <form name="solved" action="/report/{{curReport.reportID}}/0" method="POST" accept-charset="utf-8">  
 		  <input type="submit" value="Mark as Solved">
+          </form>
           {%end%}
             <h4 class="text-center">Reports</h4>
             {%if curReport.resolved is 1 %}
@@ -109,7 +111,9 @@
                       </td>
                       <td>{{curReport.votes}}
                       {%if liked is False%}
-                      <button class="btn btn-primary btn-xs" onclick={%liked = True%}style="display: none"{% databaseControl.increment_vote(curReport.reportID)%}{%end%} style="display: none">+1</button></td>
+                      <form name="solved" action="/report/{{curReport.reportID}}/1" method="POST" accept-charset="utf-8">
+                      <button class="btn btn-primary btn-xs">+1</button></td>
+                      </form>
                       {%end%}
                   </tr>
                   <tr>
