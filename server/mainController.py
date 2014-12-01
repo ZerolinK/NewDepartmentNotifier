@@ -71,8 +71,6 @@ class LoginController(BaseController):
         #self.redirect("/", permanent=True)#if permanent = true, when user refreshes, more form data will NOT be sent
     def get(self):
         self.render('login.html', incorrect = False)#login.html page to be rendered
-    '''def put(self):
-        RETRIVE AND STORE USER DATA IN DATABASE'''
     class LogoutController(BaseController):
         @tornado.web.authenticated
         def get(self):
@@ -87,14 +85,22 @@ class LoginController(BaseController):
         
 #TODO: define this shit"""
 
-class ReportController(BaseController):
+class ViewController(BaseController):
     def get(self):
-        self.render('report.html', userRole = int(self.get_secure_cookie("userRole")))
+        reportList = databaseControl.get_top_reports()
+        self.render('view.html', fullName= self.get_secure_cookie("fullName"), reportList = reportList )
+
+
+    class ReportController(BaseController):
+	    @tornado.web.authenticated
+	    def get(self, curReport):
+	        self.render('report.html', userRole = int(self.get_secure_cookie("userRole")), report = curReport)
         
     class NewReportController(BaseController):
         @tornado.web.authenticated
         def get(self):
             self.render('create.html', user = self.current_user, userID = self.get_secure_cookie("userID"))
+
         def post(self):
             summary = self.get_argument("summary")
             description = self.get_argument("description")
@@ -115,8 +121,9 @@ def launch():
     "cookie_secret": os.urandom(24)}
 
     handlers = [ (r'/', IndexController),
-        (r'/report', ReportController),
-        (r'/create', ReportController.NewReportController), 
+        (r'/reports', ViewController),
+        (r'/report', ViewController.ReportController),
+        (r'/create', ViewController.NewReportController), 
         (r'/login', LoginController), 
         (r'/logout', LoginController.LogoutController),
         (r'/profile', UserProfileController) ]
