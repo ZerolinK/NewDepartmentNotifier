@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2014 at 11:38 PM
+-- Generation Time: Dec 02, 2014 at 01:26 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `report` (
   `Is_Resolved` tinyint(1) NOT NULL,
   `Date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Report_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
 
 --
 -- Dumping data for table `report`
@@ -47,8 +47,9 @@ INSERT INTO `report` (`Report_ID`, `User_ID`, `Summary`, `Description`, `Votes`,
 (3, 6003090, 'Programming', 'I dont know how to do this! Can someone please help me!', 7, 0, '2014-11-30 13:54:49'),
 (36, 6003090, 'No food', 'We''re starving. There''s absolutely no food in the vending machines!', 0, 0, '2014-11-30 18:22:08'),
 (37, 6003090, 'Bike Pump', 'The bike pump near the computer science parking lot is broken. Can someone fix it soon please?', 3, 0, '2014-11-30 18:22:34'),
-(38, 6003090, 'Broken Mac', 'Mac desktop in lab is broken. But no one really cares.', 1, 1, '2014-11-30 18:23:04'),
-(39, 6003090, 'Broken window', 'Window broken in JCCL. Please fix this. It is unsightly.', 3, 1, '2014-11-30 18:24:05');
+(38, 6003090, 'Broken Mac', 'Mac desktop in lab is broken. But no one really cares.', 2, 1, '2014-11-30 18:23:04'),
+(39, 6003090, 'Broken window', 'Window broken in JCCL. Please fix this. It is unsightly.', 3, 1, '2014-11-30 18:24:05'),
+(40, 6003090, 'Smelly Carpet', 'The carpet in the bathroom stinks. Why do we have carpets in the bathroom anyway?', 1, 0, '2014-12-01 18:38:02');
 
 -- --------------------------------------------------------
 
