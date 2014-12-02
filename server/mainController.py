@@ -174,7 +174,7 @@ def launch():
 
     global databaseControl
     databaseControl = databaseController.DatabaseController('localhost', 3306, 'testuser', 'test623', 'testdb')
-    #databaseControl.create_basic_user("3654955", "Steve", "Ignetti", "signe001@fiu.edu", "dpnet")
+    databaseControl.create_basic_user("0010001", "Tariq", "King", "tking003@fiu.edu", "dpnet")
     application = tornado.web.Application(handlers, **server_settings)
     http_server = tornado.httpserver.HTTPServer(application)
     http_server.listen(options.port)
