@@ -119,6 +119,15 @@ class DatabaseController(object):
                         reportList.append(reportData)
                 return reportList
 
+        def get_recent_reports(self):
+                query = "SELECT * FROM `report` ORDER BY `report`.`Date` DESC "
+                self.cursor.execute(query)
+                reportList = []
+                for (Report_ID, User_ID, Summary, Description, Votes, Is_Resolved, Date) in self.cursor:
+                        reportData = Report.make_report(Report_ID, User_ID, Summary, Description, Votes, Is_Resolved, Date)
+                        reportList.append(reportData)
+                return reportList
+
         def create_basic_user(self, userID, fName, lName, email, password):
                 password2 = generate_password_hash(password)
                 #query = "INSERT INTO `testdb`.`user` (`ID`, `FName`, `LName`, `Email`, `Pass`, `Role`) VALUES ('" + userID + "', '" + fName + "', '" + lName + "', '" + email +"', '" + password2 + "', '0')"

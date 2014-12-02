@@ -34,16 +34,22 @@ class IndexController(BaseController):
         	sixthReport = None
         first = str(self.get_secure_cookie("Fname"))
         last = str(self.get_secure_cookie("Lname"))
+        recentReports = databaseControl.get_recent_reports()
+        newReports = []
+        numReports = 0
+        for report in recentReports:
+            if (numReports < 6):
+                newReports.append(report)
+            numReports+=1
+
         if (self.current_user is not None):
             username = first+" "+ last
             self.render('index.html', user = self.get_secure_cookie("fullName"), reportOne = firstReport, reportTwo = secondReport,
-             reportThree = thirdReport, reportFour = fourthReport, reportFive = fifthReport, reportSix = sixthReport)
+             reportThree = thirdReport, reportFour = fourthReport, reportFive = fifthReport, reportSix = sixthReport, recent = newReports)
         else:
             self.render('index.html', user = None, reportOne = firstReport, reportTwo = secondReport, reportThree = thirdReport,
-             reportFour = fourthReport, reportFive = fifthReport, reportSix = sixthReport)
+             reportFour = fourthReport, reportFive = fifthReport, reportSix = sixthReport, recent = newReports)
 
-'''class WebPageController(tornado.web.RequestHandler):'''
-    #TODO: define this shit
 
 class LoginController(BaseController):
     def post(self):
@@ -84,8 +90,15 @@ class LoginController(BaseController):
 class ViewController(BaseController):
     def get(self):
         #renders view of all reports, ranked by votes
+        recentReports = databaseControl.get_recent_reports()
+        newReports = []
+        numReports = 0
+        for report in recentReports:
+            if (numReports < 6):
+                newReports.append(report)
+            numReports+=1
         reportList = databaseControl.get_top_reports()
-        self.render('view.html', fullName= self.get_secure_cookie("fullName"), reportList = reportList )
+        self.render('view.html', fullName= self.get_secure_cookie("fullName"), reportList = reportList, recentReports = newReports )
 
     class ReportController(BaseController):
         @tornado.web.authenticated
@@ -112,7 +125,14 @@ class ViewController(BaseController):
         @tornado.web.authenticated
         def get(self):
             #renders view of report creation template
-            self.render('create.html', user = self.current_user, userID = self.get_secure_cookie("userID"))
+            recentReports = databaseControl.get_recent_reports()
+            newReports = []
+            numReports = 0
+            for report in recentReports:
+                if (numReports < 6):
+                    newReports.append(report)
+                numReports+=1
+            self.render('create.html', user = self.current_user, userID = self.get_secure_cookie("userID"), recentReports = newReports)
         def post(self):
             #adds report from template into the database
             summary = self.get_argument("summary")
@@ -125,8 +145,16 @@ class ViewController(BaseController):
 class UserProfileController(BaseController):
     @tornado.web.authenticated
     def get(self):
+        #displays user profile
+        recentReports = databaseControl.get_recent_reports()
+        newReports = []
+        numReports = 0
+        for report in recentReports:
+            if (numReports < 6):
+                newReports.append(report)
+            numReports+=1
         self.render('profile.html', fullName= self.get_secure_cookie("fullName"), firstName= self.get_secure_cookie("Fname"), lastName = self.get_secure_cookie("Lname"),
-         userID = self.get_secure_cookie("userID"), userEmail = self.get_secure_cookie("email") )
+         userID = self.get_secure_cookie("userID"), userEmail = self.get_secure_cookie("email"), recentReports = newReports )
 
 
 def launch():
