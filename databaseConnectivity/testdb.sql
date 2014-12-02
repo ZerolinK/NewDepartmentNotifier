@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2014 at 01:26 AM
+-- Generation Time: Dec 02, 2014 at 11:15 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `report` (
   `Is_Resolved` tinyint(1) NOT NULL,
   `Date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Report_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
 
 --
 -- Dumping data for table `report`
@@ -49,7 +49,9 @@ INSERT INTO `report` (`Report_ID`, `User_ID`, `Summary`, `Description`, `Votes`,
 (37, 6003090, 'Bike Pump', 'The bike pump near the computer science parking lot is broken. Can someone fix it soon please?', 3, 0, '2014-11-30 18:22:34'),
 (38, 6003090, 'Broken Mac', 'Mac desktop in lab is broken. But no one really cares.', 2, 1, '2014-11-30 18:23:04'),
 (39, 6003090, 'Broken window', 'Window broken in JCCL. Please fix this. It is unsightly.', 3, 1, '2014-11-30 18:24:05'),
-(40, 6003090, 'Smelly Carpet', 'The carpet in the bathroom stinks. Why do we have carpets in the bathroom anyway?', 1, 0, '2014-12-01 18:38:02');
+(40, 6003090, 'Smelly Carpet', 'The carpet in the bathroom stinks. Why do we have carpets in the bathroom anyway?', 2, 0, '2014-12-01 18:38:02'),
+(41, 6003090, 'I need to pass Software Engineering', 'I need an A please.', 0, 0, '2014-12-02 17:05:18'),
+(42, 6003090, 'Paper dispenser in bathrooms', 'The paper dispensers in the bathroom are barely working. Can they be fixed please? Its hard to dry my hands when waving them all over the place.', 0, 0, '2014-12-02 17:11:25');
 
 -- --------------------------------------------------------
 
@@ -73,6 +75,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`ID`, `FName`, `LName`, `Email`, `Pass`, `Role`) VALUES
+(10001, 'Tariq', 'King', 'tking003@fiu.edu', 'pbkdf2:sha1:1000$PISTRGn3$47d6cedd701abef83530d848f02fe0746d34f82f', 1),
 (2995664, 'Marc', 'Roger', 'mroge009@fiu.edu', 'pbkdf2:sha1:1000$dViNo6Ky$a8830a16e96bb1ad786d0102994c76d7572daa4a', 1),
 (3654955, 'Steve', 'Ignetti', 'signe001@fiu.edu', 'pbkdf2:sha1:1000$rY80gllE$74ea69c666d259c4f0a9baa23488871b411996d0', 0),
 (6003090, 'David', 'Vizcaino', 'dvizc002@fiu.edu', 'pbkdf2:sha1:1000$2AayyrjX$a0b9194b7fe86f7e60fdf1118d626fd51c50b98f', 0);
